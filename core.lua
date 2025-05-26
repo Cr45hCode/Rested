@@ -1,3 +1,5 @@
+-- TODO: Add show/hide toggle command
+-- TODO: Calculate rested %
 
 local LeftText = MainMenuExpBar:CreateFontString("ExperienceLeft", "OVERLAY", "GameTooltipText")
 LeftText:SetFont("Fonts\\ARIALN.TTF", 12, "THINOUTLINE")
@@ -35,13 +37,16 @@ function UpdateXPBarText()
     local playerLevel = UnitLevel("player")
     local restedXP = GetXPExhaustion()
 
-    local currentXP = tonumber(UnitXP("player"))
+    -- local currentXP = tonumber(UnitXP("player"))
     local nextLevelXP = tonumber(UnitXPMax("player"))
-    local xpleft = nextLevelXP - currentXP
+    -- local xpleft = nextLevelXP - currentXP
+
+    local maxRest = nextLevelXP * 1.5
+    local restedPercent = restedXP / maxRest * 100
     
     if playerLevel < 60 then
         if restedXP then
-            LeftText:SetText("Rested XP: " .. restedXP)
+            LeftText:SetText("Rested XP: " .. restedXP .. " / " .. maxRest .. " (" .. restedPercent .. "%)")
         else
             LeftText:SetText("")
         end
