@@ -1,5 +1,5 @@
 -- TODO: Add show/hide toggle command
--- TODO: Calculate rested %
+-- TODO: Add time to fully rested
 
 local LeftText = MainMenuExpBar:CreateFontString("ExperienceLeft", "OVERLAY", "GameTooltipText")
 LeftText:SetFont("Fonts\\ARIALN.TTF", 12, "THINOUTLINE")
@@ -38,18 +38,20 @@ function UpdateXPBarText()
     local restedXP = GetXPExhaustion() or 0
     local isResting = IsResting()
 
-    -- local currentXP = tonumber(UnitXP("player"))
     local nextLevelXP = tonumber(UnitXPMax("player"))
+    -- local currentXP = tonumber(UnitXP("player"))
     -- local xpleft = nextLevelXP - currentXP
 
     local maxRest = nextLevelXP * 1.5
-    local restedPercent = tonumber(string.format("%.2f", restedXP / maxRest * 100))
-    local isRested = (restedPercent == 100)
-    -- local timeToFullRested = GetTimeToWellRested()
+    local restedPercent = tonumber(string.format("%.2f", restedXP / maxRest * 100)) or 0
+    -- local isRested = (restedPercent == 100)
+    -- local timeToFullRested = GetTimeToWellRested() or 0
     
     if playerLevel < 60 then
         if restedXP then
-            LeftText:SetText("Rested XP: " .. restedXP .. " / " .. maxRest .. " (|cFF0ABCDE" .. restedPercent .. "%|r)")
+            -- local txtRemainingTime = (isResting and not isRested and timeToFullRested and (" |cFF0ABCDE" .. timeToFullRested .. " until fully rested|r") or "")
+            local txtRemainingTime = ""
+            LeftText:SetText("Rested XP: " .. restedXP .. " / " .. maxRest .. " (|cFF0ABCDE" .. restedPercent .. "%|r)" .. txtRemainingTime)
         else
             LeftText:SetText("")
         end
