@@ -2,7 +2,7 @@
 ## Title: |cff0abcdeRest|cffffffffed
 ## Author: Cr45hCode
 ## Notes: A simple and lightweight rested XP info text for your XP bar.
-## Version: 1.1.0
+## Version: 1.1.1
 
 # main
 core.lua
